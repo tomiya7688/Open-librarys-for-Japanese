@@ -1,0 +1,23 @@
+name: Portal checks
+
+on:
+  pull_request:
+    paths:
+      - "portal/**"
+      - "README.md"
+  push:
+    paths:
+      - "portal/**"
+      - "README.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check official link portal
+        run: python3 -m unittest portal/test_portal.py
