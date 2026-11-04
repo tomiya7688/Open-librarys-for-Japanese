@@ -70,6 +70,19 @@ C++ の `std::string::size()` は UTF-8 の**バイト数**です。
 | `kanji_jis_level1.txt` | 2965 | JIS X 0208 第1水準漢字そのもの |
 | `japanese_jis_level1.txt` | 3476 | `japanese_extended.txt` + JIS第1水準の不足分 |
 | `all_jis_level1.txt` | 3570 | `all_extended.txt` + JIS第1水準の不足分 |
+| `fullwidth_digits.txt` | 10 | 全角数字 ０〜９ |
+| `fullwidth_alphabet_upper.txt` | 26 | 全角英大文字 Ａ〜Ｚ |
+| `fullwidth_alphabet_lower.txt` | 26 | 全角英小文字 ａ〜ｚ |
+| `fullwidth_symbols.txt` | 32 | 全角ASCII記号 |
+| `fullwidth_ascii.txt` | 94 | Unicode U+FF01〜U+FF5E の全角ASCII互換文字 |
+| `japanese_punctuation.txt` | 30 | 句読点・括弧・踊り字・波ダッシュ等 |
+| `common_math_symbols.txt` | 37 | よく使う数学記号 |
+| `common_currency_symbols.txt` | 13 | 通貨記号 |
+| `common_arrows.txt` | 15 | 矢印 |
+| `common_marks.txt` | 32 | 図形・注記・著作権等の一般記号 |
+| `common_units.txt` | 14 | 温度・角度・単位記号 |
+| `symbols_extended.txt` | 227 | 上記記号セットを重複除去して結合 |
+| `all_jis_level1_symbols.txt` | 3796 | `all_jis_level1.txt` + 記号拡張 |
 
 ## 「50音」が46文字なのはなぜ？
 
@@ -213,6 +226,49 @@ JIS第1水準のうち未収録の漢字
 既存モデルとの互換性を守るため、`japanese_extended.txt` と `all_extended.txt` 自体は変更していません。
 
 日本語OCRを新しく学習するなら、広めの実用セットとして `all_jis_level1.txt` を使うのが簡単です。
+
+
+
+## 全角文字・日本語記号まで使いたい場合
+
+日本語OCRでは、漢字やかなだけでなく、全角の英数字・記号、括弧、句読点、数学記号、通貨記号などが頻繁に現れます。
+
+`fullwidth_ascii.txt` には Unicode の **U+FF01〜U+FF5E** をそのまま並べた94文字を収録しています。これは ASCII の `!`〜`~` に対応する全角互換文字です。
+
+内訳:
+
+- 全角数字: 10文字
+- 全角英大文字: 26文字
+- 全角英小文字: 26文字
+- 全角記号: 32文字
+
+さらに日本語文書向けに、
+
+- 句読点・括弧・踊り字
+- 数学記号
+- 通貨記号
+- 矢印
+- 図形・注記記号
+- 温度・単位記号
+
+をカテゴリ別ファイルで用意しています。
+
+全部まとめて使いたい場合は `symbols_extended.txt`、JIS第1水準まで含む現在の最大セットを使いたい場合は **`all_jis_level1_symbols.txt`** を使ってください。
+
+### 全角空白について
+
+U+3000 IDEOGRAPHIC SPACE（全角空白）はこの辞書には自動で入れていません。
+
+理由は、見た目が空行と区別しづらく、ローダー側で `strip()` されると消え、CTC等では空白クラスの扱いもモデルごとに異なるためです。
+
+必要な場合は利用側で明示的にクラスへ追加してください。
+
+### Unicodeの基準
+
+- Halfwidth and Fullwidth Forms
+  https://www.unicode.org/charts/PDF/UFF00.pdf
+- CJK Symbols and Punctuation
+  https://www.unicode.org/charts/PDF/U3000.pdf
 
 
 ## 重要: 学習開始後は並び順を変えない
