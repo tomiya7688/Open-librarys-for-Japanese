@@ -14,12 +14,19 @@
     "kanji_junior_high.txt": 1110,
     "basic.txt": 94,
     "japanese.txt": 2315,
-    "all.txt": 2409
+    "all.txt": 2409,
+    "kanji_kanken_level2.txt": 2136,
+    "kanji_jinmeiyo.txt": 864,
+    "japanese_extended.txt": 3179,
+    "all_extended.txt": 3273
   },
   "notes": {
     "elementary_kanji": "1026 characters from the current elementary-school allocation set",
     "junior_high_kanji": "1110 other Joyo kanji (2136 - 1026)",
     "space": "not included",
-    "reserved_tokens": "CTC blank/PAD/UNK/BOS/EOS are not included"
+    "reserved_tokens": "CTC blank/PAD/UNK/BOS/EOS are not included",
+    "kanken_level2": "2136 Joyo kanji; same character set as elementary + junior_high combined",
+    "jinmeiyo": "864 current Jinmeiyo kanji, including 勒 added on 2026-06-26",
+    "compatibility": "japanese.txt and all.txt remain unchanged; use *_extended.txt for new models"
   }
 }
