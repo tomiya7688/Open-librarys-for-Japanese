@@ -60,9 +60,13 @@ C++ の `std::string::size()` は UTF-8 の**バイト数**です。
 | `katakana.txt` | 91 | 基本 + 濁音/半濁音 + 小書き + 追加文字 + 長音符 |
 | `kanji_elementary.txt` | 1026 | 小学校の学年別漢字配当表に含まれる漢字 |
 | `kanji_junior_high.txt` | 1110 | 常用漢字から小学校配当漢字を除いた集合 |
+| `kanji_kanken_level2.txt` | 2136 | 漢検2級相当 = 常用漢字すべて |
+| `kanji_jinmeiyo.txt` | 864 | 常用漢字外の現行人名用漢字 |
 | `basic.txt` | 94 | 数字 + 英字 + ASCII半角記号 |
 | `japanese.txt` | 2315 | ひらがな + カタカナ + 常用漢字 |
-| `all.txt` | 2409 | `basic.txt` + `japanese.txt` |
+| `all.txt` | 2409 | `basic.txt` + `japanese.txt`（互換性維持版） |
+| `japanese_extended.txt` | 3179 | かな + 常用漢字2136 + 人名用漢字864 |
+| `all_extended.txt` | 3273 | `basic.txt` + `japanese_extended.txt` |
 
 ## 「50音」が46文字なのはなぜ？
 
@@ -133,6 +137,50 @@ num_classes = len(chars) + 1
 ```
 
 のように、辞書末尾の次を blank にできます。
+
+
+## 漢検2級・人名用漢字まで使いたい場合
+
+`kanji_kanken_level2.txt` は、日本漢字能力検定の2級相当として扱いやすいよう、常用漢字2,136字を1ファイルにまとめたものです。
+
+漢検2級の対象は「すべての常用漢字 2,136字」なので、文字集合としては従来の
+
+```text
+kanji_elementary.txt 1,026字
++
+kanji_junior_high.txt 1,110字
+=
+2,136字
+```
+
+と同じです。
+
+さらに、2026年6月26日の戸籍法施行規則改正で「勒」が追加され、現行の人名用漢字は864字です。
+
+`kanji_jinmeiyo.txt` にはこの864字を収録しています。常用漢字2,136字と合わせると、名前に使える漢字はちょうど3,000字になります。
+
+氏名、住所録、申込書、名簿、請求書などをOCRするなら、まず `all_extended.txt` を使うのがおすすめです。
+
+### 既存モデルとの互換性
+
+`all.txt` と `japanese.txt` は既存の class ID を壊さないため変更していません。
+
+新しく学習するモデルで文字範囲を広げたい場合だけ、
+
+- `japanese_extended.txt`
+- `all_extended.txt`
+
+を選んでください。
+
+### 公的な基準
+
+- 漢検2級: 日本漢字能力検定協会「各級の概要」
+  https://www.kanken.or.jp/kanken/grades/overview/
+- 子の名に使える漢字: 法務省
+  https://www.moj.go.jp/MINJI/minji86.html
+- 戸籍法施行規則: e-Gov法令検索
+  https://laws.e-gov.go.jp/law/322M40000010094/
+
 
 ## 重要: 学習開始後は並び順を変えない
 
