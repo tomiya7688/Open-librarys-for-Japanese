@@ -1,0 +1,191 @@
+# OCR Character Dictionary
+
+OCR / 文字認識モデルでそのまま使える、**UTF-8・1行1文字**の文字辞書です。
+
+外部ライブラリは不要です。必要な `.txt` を1個コピーするだけで使えます。
+
+## 30秒で使う
+
+全部入りなら `all.txt` を使います。
+
+```bash
+curl -L \
+  -o chars.txt \
+  https://raw.githubusercontent.com/tomiya7688/Open-librarys-for-Japanese/main/Common/original/ocr_char_dictionary/all.txt
+```
+
+Python:
+
+```python
+from pathlib import Path
+
+chars = Path("chars.txt").read_text(encoding="utf-8").splitlines()
+
+id_to_char = dict(enumerate(chars))
+char_to_id = {char: i for i, char in enumerate(chars)}
+
+print(len(chars))
+print(char_to_id["あ"])
+```
+
+C++:
+
+```cpp
+#include <fstream>
+#include <string>
+#include <vector>
+
+std::ifstream file("chars.txt");
+std::vector<std::string> chars;
+
+for (std::string line; std::getline(file, line); ) {
+    chars.push_back(line);
+}
+```
+
+C++ の `std::string::size()` は UTF-8 の**バイト数**です。
+この辞書の「1行1文字」は Unicode の1文字という意味なので、漢字によって1〜4バイトになります。
+
+## ファイル一覧
+
+| ファイル | 文字数 | 内容 |
+| --- | ---: | --- |
+| `digits.txt` | 10 | 0〜9 |
+| `alphabet_lower.txt` | 26 | a〜z |
+| `alphabet_upper.txt` | 26 | A〜Z |
+| `ascii_symbols.txt` | 32 | ASCII の半角記号（空白を除く） |
+| `hiragana_gojuon.txt` | 46 | 現代仮名遣いの基本ひらがな |
+| `katakana_gojuon.txt` | 46 | 現代仮名遣いの基本カタカナ |
+| `hiragana.txt` | 88 | 基本 + 濁音/半濁音 + 小書き + 一部追加文字 |
+| `katakana.txt` | 91 | 基本 + 濁音/半濁音 + 小書き + 追加文字 + 長音符 |
+| `kanji_elementary.txt` | 1026 | 小学校の学年別漢字配当表に含まれる漢字 |
+| `kanji_junior_high.txt` | 1110 | 常用漢字から小学校配当漢字を除いた集合 |
+| `basic.txt` | 94 | 数字 + 英字 + ASCII半角記号 |
+| `japanese.txt` | 2315 | ひらがな + カタカナ + 常用漢字 |
+| `all.txt` | 2409 | `basic.txt` + `japanese.txt` |
+
+## 「50音」が46文字なのはなぜ？
+
+現代の五十音表には空いているマスがあるため、基本文字として実際に並べると46文字です。
+
+そのため、
+
+- `hiragana_gojuon.txt`: 46文字
+- `katakana_gojuon.txt`: 46文字
+
+としています。
+
+OCRでは濁音や小書き文字も必要になることが多いため、実用向けに `hiragana.txt` と `katakana.txt` も用意しています。
+
+## 漢字
+
+### 小学校
+
+`kanji_elementary.txt` は、現行の小学校学習指導要領の学年別漢字配当表に対応する **1,026字**です。
+
+### 中学校
+
+中学校の学習指導要領では、第3学年までに「その他の常用漢字の大体を読むこと」とされています。
+
+この辞書ではOCRの文字集合として明確に扱えるよう、
+
+```text
+常用漢字 2,136字 - 小学校 1,026字 = 1,110字
+```
+
+を `kanji_junior_high.txt` としています。
+
+これは「中学校で全1,110字を必ず書けるようにする」という意味ではなく、**OCR用の文字集合として常用漢字を小学校分とそれ以外に分割したもの**です。
+
+常用漢字の `𠮟` (U+20B9F) もそのまま収録しています。
+
+## 半角記号
+
+`ascii_symbols.txt` は ASCII の表示可能文字のうち、
+
+- 数字
+- A-Z / a-z
+- 空白
+
+を除いた32文字です。
+
+空白は見た目では「空行」と区別できず、OCR方式によって扱いも異なるため収録していません。
+
+## CTC blank / PAD / UNK について
+
+この辞書には以下の予約トークンを含めません。
+
+- CTC blank
+- PAD
+- UNK
+- BOS / EOS
+- 空白クラス
+
+フレームワークやモデルごとに必要な位置が異なるため、利用側で追加してください。
+
+例えばCTCなら、
+
+```python
+chars = Path("all.txt").read_text(encoding="utf-8").splitlines()
+
+blank_id = len(chars)
+num_classes = len(chars) + 1
+```
+
+のように、辞書末尾の次を blank にできます。
+
+## 重要: 学習開始後は並び順を変えない
+
+OCRモデルでは一般に、
+
+```text
+行番号 = class ID
+```
+
+として扱います。
+
+例えば辞書の3行目が `2` なら、そのモデルではその位置が `2` のクラスになります。
+
+**学習済みモデルを使い続ける場合、辞書の並び替え・途中挿入は互換性を壊します。**
+
+文字を増やしたい場合は、既存順序を維持したまま末尾追加するなど、モデル側の仕様に合わせてください。
+
+## 形式
+
+- UTF-8
+- BOMなし
+- LF改行
+- 空行なし
+- 1データ行 = Unicode 1文字
+- 各ファイル内に重複なし
+
+## 並び順
+
+- 数字: 0 → 9
+- 英字: a → z / A → Z
+- ASCII記号: ASCIIコード順
+- 五十音: 五十音順
+- 漢字: 常用漢字表側の掲載順を基準に固定
+- 結合済み辞書: READMEのファイル説明順に結合
+
+## 出典・基準
+
+漢字の文字集合は、以下の公的資料を基準にしています。
+
+- 文部科学省「小学校学習指導要領（平成29年告示）」学年別漢字配当表  
+  https://www.mext.go.jp/content/20230120-mxt_kyoiku02-100002604_01.pdf
+- 文部科学省「中学校学習指導要領（平成29年告示）」  
+  https://www.mext.go.jp/content/20230120-mxt_kyoiku02-100002604_02.pdf
+- 文化庁「常用漢字表の音訓索引」  
+  https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/kanji/joyokanjisakuin/index.html
+
+検証日: 2026-11-04
+
+## こんな用途に
+
+- CRNN + CTC の文字辞書
+- OCR Transformer の vocabulary
+- 合成文字画像生成
+- 文字分類器
+- OCRの評価用ラベル変換
+- 日本語文字認識の試作
