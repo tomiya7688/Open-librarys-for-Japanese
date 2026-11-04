@@ -21,7 +21,20 @@
     "all_extended.txt": 3273,
     "kanji_jis_level1.txt": 2965,
     "japanese_jis_level1.txt": 3476,
-    "all_jis_level1.txt": 3570
+    "all_jis_level1.txt": 3570,
+    "fullwidth_digits.txt": 10,
+    "fullwidth_alphabet_upper.txt": 26,
+    "fullwidth_alphabet_lower.txt": 26,
+    "fullwidth_symbols.txt": 32,
+    "fullwidth_ascii.txt": 94,
+    "japanese_punctuation.txt": 30,
+    "common_math_symbols.txt": 37,
+    "common_currency_symbols.txt": 13,
+    "common_arrows.txt": 15,
+    "common_marks.txt": 32,
+    "common_units.txt": 14,
+    "symbols_extended.txt": 227,
+    "all_jis_level1_symbols.txt": 3796
   },
   "notes": {
     "elementary_kanji": "1026 characters from the current elementary-school allocation set",
@@ -32,6 +45,8 @@
     "jinmeiyo": "864 current Jinmeiyo kanji, including 勒 added on 2026-06-26",
     "compatibility": "japanese.txt and all.txt remain unchanged; use *_extended.txt for new models",
     "jis_level1": "2965 kanji from JIS X 0208 level 1 (rows 16-47)",
-    "jis_level1_extension": "297 JIS level 1 kanji were not already in japanese_extended.txt and are appended in the JIS-level1 supersets"
+    "jis_level1_extension": "297 JIS level 1 kanji were not already in japanese_extended.txt and are appended in the JIS-level1 supersets",
+    "fullwidth_ascii": "94 fullwidth ASCII variants U+FF01..U+FF5E; ideographic space U+3000 is intentionally excluded",
+    "symbols_extension": "curated punctuation/math/currency/arrows/marks/units for practical OCR; combined sets preserve prior dictionary order"
   }
 }
