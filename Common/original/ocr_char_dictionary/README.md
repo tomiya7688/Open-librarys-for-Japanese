@@ -67,6 +67,9 @@ C++ の `std::string::size()` は UTF-8 の**バイト数**です。
 | `all.txt` | 2409 | `basic.txt` + `japanese.txt`（互換性維持版） |
 | `japanese_extended.txt` | 3179 | かな + 常用漢字2136 + 人名用漢字864 |
 | `all_extended.txt` | 3273 | `basic.txt` + `japanese_extended.txt` |
+| `kanji_jis_level1.txt` | 2965 | JIS X 0208 第1水準漢字そのもの |
+| `japanese_jis_level1.txt` | 3476 | `japanese_extended.txt` + JIS第1水準の不足分 |
+| `all_jis_level1.txt` | 3570 | `all_extended.txt` + JIS第1水準の不足分 |
 
 ## 「50音」が46文字なのはなぜ？
 
@@ -180,6 +183,36 @@ kanji_junior_high.txt 1,110字
   https://www.moj.go.jp/MINJI/minji86.html
 - 戸籍法施行規則: e-Gov法令検索
   https://laws.e-gov.go.jp/law/322M40000010094/
+
+
+
+## JIS第1水準まで使いたい場合
+
+JIS X 0208 の第1水準漢字 **2,965字**を `kanji_jis_level1.txt` に収録しています。
+
+JIS第1水準は区点の16区〜47区に配置された漢字集合です。この辞書では、その区点範囲を基準に2,965字であることを検証しています。
+
+### 上位互換版
+
+JIS第1水準は、常用漢字や人名用漢字と完全な包含関係ではありません。
+
+そのため `japanese_jis_level1.txt` / `all_jis_level1.txt` は、既存の拡張版を削るのではなく、
+
+```text
+既存の拡張辞書
++
+JIS第1水準のうち未収録の漢字
+```
+
+として作っています。
+
+- `japanese_jis_level1.txt`: 3476文字
+- `all_jis_level1.txt`: 3570文字
+- 既存の `japanese_extended.txt` に対してJIS第1水準から追加された文字: 297字
+
+既存モデルとの互換性を守るため、`japanese_extended.txt` と `all_extended.txt` 自体は変更していません。
+
+日本語OCRを新しく学習するなら、広めの実用セットとして `all_jis_level1.txt` を使うのが簡単です。
 
 
 ## 重要: 学習開始後は並び順を変えない
