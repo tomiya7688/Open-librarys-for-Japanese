@@ -1,0 +1,25 @@
+{
+  "format": "UTF-8 / LF / one Unicode character per data line",
+  "generated_on": "2026-11-04",
+  "counts": {
+    "digits.txt": 10,
+    "alphabet_lower.txt": 26,
+    "alphabet_upper.txt": 26,
+    "ascii_symbols.txt": 32,
+    "hiragana_gojuon.txt": 46,
+    "katakana_gojuon.txt": 46,
+    "hiragana.txt": 88,
+    "katakana.txt": 91,
+    "kanji_elementary.txt": 1026,
+    "kanji_junior_high.txt": 1110,
+    "basic.txt": 94,
+    "japanese.txt": 2315,
+    "all.txt": 2409
+  },
+  "notes": {
+    "elementary_kanji": "1026 characters from the current elementary-school allocation set",
+    "junior_high_kanji": "1110 other Joyo kanji (2136 - 1026)",
+    "space": "not included",
+    "reserved_tokens": "CTC blank/PAD/UNK/BOS/EOS are not included"
+  }
+}
