@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Python・C++・開発ツールの公式サイトを日本語で案内する、軽量なリンクポータルです。">
+  <title>公式サイト・リンクポータル | Open libraries for Japanese</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+      line-height: 1.65;
+      color: #152334;
+      background: #f4f6fa;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: #165a9f; }
+    a:focus-visible, button:focus-visible, input:focus-visible {
+      outline: 3px solid #c57425;
+      outline-offset: 3px;
+    }
+    .skip-link {
+      position: absolute; left: 1rem; top: -5rem; z-index: 10;
+      padding: .5rem 1rem; background: #fff; border-radius: .5rem;
+    }
+    .skip-link:focus { top: .5rem; }
+    .hero {
+      background: #142d4b; color: #fff;
+      padding: clamp(2rem, 6vw, 4.5rem) 1.2rem;
+    }
+    .wrap { max-width: 1060px; margin-inline: auto; }
+    .eyebrow {
+      margin: 0 0 .6rem; color: #b5d7f2; font-size: .85rem;
+      font-weight: 700; letter-spacing: .08em;
+    }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.9rem); line-height: 1.3; margin: 0 0 1rem; }
+    .intro { max-width: 42rem; color: #d7e5f2; margin: 0; }
+    main { padding: 2rem 1.2rem 3rem; }
+    .tools {
+      padding: 1.3rem; background: #fff;
+      border: 1px solid #dce4ec; border-radius: 1rem;
+      box-shadow: 0 8px 24px rgba(21, 42, 72, .05);
+    }
+    label { font-weight: 700; display: block; margin-bottom: .5rem; }
+    input[type="search"] {
+      width: 100%; padding: .8rem 1rem;
+      background: #fff; border: 1px solid #8395aa; border-radius: .6rem;
+      font: inherit; color: inherit;
+    }
+    .filters { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1rem; }
+    .filters button {
+      font: inherit; cursor: pointer; color: #234464; background: #edf3fa;
+      border: 1px solid #b7c9db; border-radius: 2rem; padding: .4rem .9rem;
+    }
+    .filters button[aria-pressed="true"] {
+      background: #183e67; border-color: #183e67; color: #fff;
+    }
+    .summary { margin: 1.3rem 0 .9rem; color: #506274; }
+    .sites { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 1rem; }
+    .site {
+      display: flex; flex-direction: column; gap: .6rem; min-height: 15rem;
+      background: #fff; padding: 1.35rem; border: 1px solid #dce4ec;
+      border-radius: .9rem;
+    }
+    .site h2 { font-size: 1.18rem; line-height: 1.4; margin: 0; }
+    .site p { margin: 0; }
+    .kind { align-self: start; background: #ebf1f7; color: #355579; font-size: .8rem; padding: .15rem .55rem; border-radius: .35rem; }
+    .links { margin-top: auto; display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; }
+    .primary {
+      display: inline-block; border-radius: .45rem; padding: .5rem .75rem;
+      background: #165a9f; color: #fff; font-weight: 700; text-decoration: none;
+    }
+    .primary:hover { background: #0f467f; }
+    .secondary { font-size: .92rem; }
+    .checked { color: #647384; font-size: .77rem; }
+    .empty {
+      border: 1px dashed #9aafc2; padding: 1.3rem;
+      border-radius: .7rem; background: #fff;
+    }
+    [hidden] { display: none !important; }
+    footer { border-top: 1px solid #dce4ec; padding: 1.5rem 1.2rem 2rem; color: #536578; font-size: .9rem; }
+    footer p { margin: .45rem 0; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へ移動</a>
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">OPEN LIBRARIES FOR JAPANESE</p>
+      <h1>公式サイトへ、迷わずたどり着く。</h1>
+      <p class="intro">Python・C++・開発ツールの公式サイトを、日本語の短い説明から探せるリンク集です。公式の配布元・ドキュメントを優先して掲載しています。</p>
+    </div>
+  </header>
+  <main id="main" class="wrap">
+    <section class="tools" aria-label="サイトを探す">
+      <label for="search">サイト名・用途から検索</label>
+      <input id="search" type="search" autocomplete="off" placeholder="例：文字列、パッケージ、ビルド、Python">
+      <div class="filters" role="group" aria-label="カテゴリ">
+        <button type="button" data-filter="all" aria-pressed="true">すべて</button>
+        <button type="button" data-filter="Python" aria-pressed="false">Python</button>
+        <button type="button" data-filter="C++" aria-pressed="false">C++</button>
+        <button type="button" data-filter="開発ツール" aria-pressed="false">開発ツール</button>
+      </div>
+      <noscript><p>JavaScriptが無効のため検索・絞り込みは使えませんが、以下のすべてのリンクは閲覧できます。</p></noscript>
+    </section>
+
+    <p class="summary" id="result-count" role="status" aria-live="polite">8件のサイトを掲載</p>
+    <div class="sites" id="sites">
+      <article class="site" data-category="Python" data-keywords="python パイソン インストール ダウンロード 言語">
+        <span class="kind">Python</span>
+        <h2>Python 公式サイト</h2>
+        <p>Python本体のダウンロードや、プロジェクトからのお知らせを確認する入口。</p>
+        <div class="links">
+          <a class="primary" href="https://www.python.org/" target="_blank" rel="noopener noreferrer">公式サイトを見る ↗</a>
+        </div>
+        <small class="checked">URL確認日：2026-11-04</small>
+      </article>
+
+      <article class="site" data-category="Python" data-keywords="python パイソン リファレンス チュートリアル 標準ライブラリ">
+        <span class="kind">Python</span>
+        <h2>Python 公式ドキュメント</h2>
+        <p>言語仕様、チュートリアル、標準ライブラリの使い方を調べる。</p>
+        <div class="links">
+          <a class="primary" href="https://docs.python.org/3/" target="_blank" rel="noopener noreferrer">公式ドキュメントを見る ↗</a>
+        </div>
+        <small class="checked">URL確認日：2026-11-04</small>
+      </article>
+
+      <article class="site" data-category="Python" data-keywords="pypi python パッケージ 配布 ライブラリ 探す">
+        <span class="kind">Python</span>
+        <h2>PyPI</h2>
+        <p>Pythonパッケージを検索する公式パッケージインデックス。</p>
+        <div class="links">
+          <a class="primary" href="https://pypi.org/" target="_blank" rel="noopener noreferrer">公式サイトを見る ↗</a>
+        </div>
+        <small class="checked">URL確認日：2026-11-04</small>
+      </article>
+
+      <article class="site" data-category="Python" data-keywords="pip python install インストール パッケージ管理">
+        <span class="kind">Python</span>
+        <h2>pip 公式ドキュメント</h2>
+        <p>Pythonのパッケージをインストール・管理するためのコマンドと使い方。</p>
+        <div class="links">
+          <a class="primary" href="https://pip.pypa.io/en/stable/" target="_blank" rel="noopener noreferrer">公式ドキュメントを見る ↗</a>
+        </div>
+        <small class="checked">URL確認日：2026-11-04</small>
+      </article>
+
+      <article class="site" data-category="C++" data-keywords="c++ cpp 言語仕様 ISO WG21 標準 標準化">
+        <span class="kind">C++</span>
+        <h2>C++ 標準化委員会（WG21）</h2>
+        <p>C++の標準化作業、提案文書、規格関連情報の一次情報を確認する。</p>
+        <div class="links">
+          <a class="primary" href="https://www.open-std.org/JTC1/SC22/WG21/" target="_blank" rel="noopener noreferrer">公式サイトを見る ↗</a>
+        </div>
+        <small class="checked">URL確認日：2026-11-04</small>
+      </article>
+
+      <article class="site" data-category="C++" data-keywords="c++ cpp fmt 文字列 フォーマット 出力 print format">
+        <span class="kind">C++</span>
+        <h2>{fmt}</h2>
+        <p>C++で文字列の整形・出力を行うライブラリ。公式ドキュメントと日本語ガイドへ。</p>
+        <div class="links">
+          <a class="primary" href="https://fmt.dev/latest/" target="_blank" rel="noopener noreferrer">公式ドキュメントを見る ↗</a>
+          <a class="secondary" href="https://github.com/tomiya7688/Open-librarys-for-Japanese/blob/main/Cpp/external/fmt/README.md" target="_blank" rel="noopener noreferrer">日本語ガイド</a>
+        </div>
+        <small class="checked">URL確認日：2026-11-04</small>
+      </article>
+
+      <article class="site" data-category="C++" data-keywords="cmake c++ cpp ビルド build 設定 プロジェクト">
+        <span class="kind">C++</span>
+        <h2>CMake 公式ドキュメント</h2>
+        <p>ビルド設定やCMakeコマンド、プロジェクト構成を調べる。</p>
+        <div class="links">
+          <a class="primary" href="https://cmake.org/documentation/" target="_blank" rel="noopener noreferrer">公式ドキュメントを見る ↗</a>
+        </div>
+        <small class="checked">URL確認日：2026-11-04</small>
+      </article>
+
+      <article class="site" data-category="開発ツール" data-keywords="git バージョン管理 コミット ブランチ clone merge">
+        <span class="kind">開発ツール</span>
+        <h2>Git 公式リファレンス</h2>
+        <p>Gitコマンドやバージョン管理の操作を原典から確認する。</p>
+        <div class="links">
+          <a class="primary" href="https://git-scm.com/docs" target="_blank" rel="noopener noreferrer">公式ドキュメントを見る ↗</a>
+        </div>
+        <small class="checked">URL確認日：2026-11-04</small>
+      </article>
+    </div>
+    <p class="empty" id="empty" hidden>条件に合うサイトがありません。検索語を短くするか「すべて」に戻してください。</p>
+  </main>
+  <footer>
+    <div class="wrap">
+      <p>このポータルは各サイトの運営者とは独立した非公式の案内ページです。掲載先の運営・公開内容を保証するものではありません。</p>
+      <p>「公式」は掲載先のプロジェクト／標準化主体が管理する入口という意味です。URLの確認日は将来の稼働を保証しません。</p>
+      <p>リンクの追加・修正は <a href="https://github.com/tomiya7688/Open-librarys-for-Japanese/issues">GitHub Issue</a> から提案できます。</p>
+    </div>
+  </footer>
+  <script>
+    (() => {
+      const input = document.getElementById("search");
+      const buttons = Array.from(document.querySelectorAll("[data-filter]"));
+      const cards = Array.from(document.querySelectorAll(".site"));
+      const count = document.getElementById("result-count");
+      const empty = document.getElementById("empty");
+      let category = "all";
+      const normalize = (value) => value.normalize("NFKC").toLocaleLowerCase("ja-JP").trim();
+
+      function render() {
+        const keyword = normalize(input.value);
+        let visible = 0;
+        for (const card of cards) {
+          const text = card.textContent + " " + (card.dataset.keywords || "");
+          const categoryMatches = category === "all" || card.dataset.category === category;
+          const keywordMatches = !keyword || normalize(text).includes(keyword);
+          card.hidden = !(categoryMatches && keywordMatches);
+          if (!card.hidden) visible += 1;
+        }
+        count.textContent = visible + "件のサイトを表示中（全" + cards.length + "件）";
+        empty.hidden = visible !== 0;
+        for (const button of buttons) {
+          button.setAttribute("aria-pressed", String(button.dataset.filter === category));
+        }
+      }
+
+      input.addEventListener("input", render);
+      for (const button of buttons) {
+        button.addEventListener("click", () => {
+          category = button.dataset.filter;
+          render();
+        });
+      }
+      render();
+    })();
+  </script>
+</body>
+</html>
