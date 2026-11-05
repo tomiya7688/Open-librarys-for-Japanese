@@ -271,6 +271,21 @@ U+3000 IDEOGRAPHIC SPACE（全角空白）はこの辞書には自動で入れ�
   https://www.unicode.org/charts/PDF/U3000.pdf
 
 
+
+## OCR学習用画像データセットを生成する
+
+辞書と同じclass IDで文字画像を作りたい場合は、[dataset_generator](./dataset_generator/README.md) を使えます。
+
+- 複数フォント
+- 8段階の小回転
+- 32色パレット
+- 64x64 PNG
+- labels.csv 自動生成
+- フォント未収録文字の自動スキップ
+
+画像そのものをGitから取得するのではなく、必要なフォントを用意してローカルで再現可能に生成する方式です。
+
+
 ## 重要: 学習開始後は並び順を変えない
 
 OCRモデルでは一般に、
