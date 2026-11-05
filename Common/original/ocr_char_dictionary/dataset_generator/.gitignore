@@ -1,0 +1,6 @@
+output/
+fonts/*
+!fonts/.gitkeep
+.venv/
+__pycache__/
+*.pyc
