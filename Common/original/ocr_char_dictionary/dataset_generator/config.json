@@ -1,0 +1,14 @@
+{
+  "dictionary": "../all_jis_level1_symbols.txt",
+  "output_dir": "./output",
+  "fonts_dir": "./fonts",
+  "image_size": 64,
+  "margin": 4,
+  "rotations": [-14, -10, -6, -2, 2, 6, 10, 14],
+  "palettes_file": "./palettes.json",
+  "file_format": "png",
+  "overwrite": false,
+  "limit_chars": null,
+  "seed": 42,
+  "position_jitter_px": 0
+}
